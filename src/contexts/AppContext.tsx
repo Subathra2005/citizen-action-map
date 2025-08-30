@@ -49,6 +49,7 @@ type AppAction =
   | { type: 'LOGIN'; payload: User }
   | { type: 'LOGOUT' }
   | { type: 'REGISTER_USER'; payload: User }
+  | { type: 'UPDATE_USER'; payload: User }
   | { type: 'SUBMIT_COMPLAINT'; payload: Complaint }
   | { type: 'UPDATE_COMPLAINT'; payload: { id: string; updates: Partial<Complaint> } }
   | { type: 'UPVOTE_COMPLAINT'; payload: { complaintId: string; userId: string } }
@@ -126,6 +127,15 @@ function appReducer(state: AppState, action: AppAction): AppState {
       return {
         ...state,
         users: [...state.users, action.payload],
+      };
+
+    case 'UPDATE_USER':
+      return {
+        ...state,
+        user: state.user?.id === action.payload.id ? action.payload : state.user,
+        users: state.users.map(user =>
+          user.id === action.payload.id ? action.payload : user
+        ),
       };
 
     case 'SUBMIT_COMPLAINT':

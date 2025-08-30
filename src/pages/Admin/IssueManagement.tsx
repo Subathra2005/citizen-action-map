@@ -37,6 +37,11 @@ const IssueManagement = () => {
     c => c.department === state.user?.department
   );
 
+  // Debug logging
+  console.log('Current user department:', state.user?.department);
+  console.log('All complaints:', state.complaints);
+  console.log('Department complaints:', departmentComplaints);
+
   // Apply filters and search
   const filteredComplaints = departmentComplaints
     .filter(complaint => {
